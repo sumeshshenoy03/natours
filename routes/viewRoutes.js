@@ -21,6 +21,7 @@ router.get(
 router.get('/tour/:slug', authController.isLoggedIn, viewController.getTour);
 
 router.get('/login', authController.isLoggedIn, viewController.getLogin);
+router.get('/sign-up', viewController.getSignup);
 router.get('/me', authController.protect, viewController.getAccount);
 router.get('/my-tours', authController.protect, viewController.getMyTours);
 router.post(

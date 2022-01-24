@@ -40,8 +40,18 @@ exports.getTour = catchAsync(async (req, res, next) => {
 });
 
 exports.getLogin = catchAsync(async (req, res, next) => {
-  res.status(200).render('login', {
-    title: 'login',
+  if (!res.locals.user) {
+    res.status(200).render('login', {
+      title: 'login',
+    });
+    return;
+  }
+  res.redirect('/');
+});
+
+exports.getSignup = catchAsync(async (req, res, next) => {
+  res.status(200).render('signup', {
+    title: 'Sign-up',
   });
 });
 
@@ -71,7 +81,6 @@ exports.updateUserData = catchAsync(async (req, res, next) => {
 
 exports.getMyTours = catchAsync(async (req, res, next) => {
   //Find all Bookings
-
   const bookings = await Booking.find({ user: req.user.id });
 
   // Find tours with the returned ID's
